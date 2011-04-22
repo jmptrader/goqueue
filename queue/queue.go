@@ -3,6 +3,7 @@ package queue
 
 import (
 	"os"
+	"subscriber"
 )
 
 type Message struct {
@@ -10,37 +11,28 @@ type Message struct {
 	messageBody string
 }
 
-type Subscriber struct {
-	name     string
-	endpoint string
-}
-
-func NewSubscriber(name string, endpoint string) *Subscriber {
-	return &Subscriber{name, endpoint}
-}
-
 
 // A Topic is a point of interest that subscribers whish to get updates on
 type Topic struct {
 	Name        string
-	Subscribers []*Subscriber
+	Subscribers []*subscriber.Subscriber
 }
 
 
 func NewTopic(name string) *Topic {
-	return &Topic{name, [...]*Subscriber{}[:]}
+	return &Topic{name, [...]*subscriber.Subscriber{}[:]}
 }
 
-func (t *Topic) AddSubscriber(s *Subscriber) {
+func (t *Topic) AddSubscriber(s *subscriber.Subscriber) {
 	if t.Subscribers == nil {
-		t.Subscribers = [...]*Subscriber{}[:]
+		t.Subscribers = [...]*subscriber.Subscriber{}[:]
 	}
 	t.Subscribers = append(t.Subscribers, s)
 }
 
-func (t *Topic) RemoveSubscriber(name string) (s *Subscriber) {
+func (t *Topic) RemoveSubscriber(name string) (s *subscriber.Subscriber) {
 	for i, v := range t.Subscribers {
-		if v.name == name {
+		if v.Name == name {
 			s = v
 			t.Subscribers = append(t.Subscribers[:i], t.Subscribers[i+1:]...)
 			break
@@ -49,9 +41,9 @@ func (t *Topic) RemoveSubscriber(name string) (s *Subscriber) {
 	return
 }
 
-func (t *Topic) GetSubscriber(name string) (s *Subscriber) {
+func (t *Topic) GetSubscriber(name string) (s *subscriber.Subscriber) {
 	for _, v := range t.Subscribers {
-		if v.name == name {
+		if v.Name == name {
 			s = v
 			break
 		}
@@ -77,6 +69,15 @@ func (t *TopicList) AddTopic(name string) (e os.Error) {
 	return
 }
 
+func (t *TopicList) GetTopic(name string) (tpc *Topic) {
+	for _, v := range t.Topics {
+		if v.Name == name {
+			tpc = v
+			break
+		}
+	}
+	return
+}
 
 ///
 
