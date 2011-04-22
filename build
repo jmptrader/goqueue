@@ -8,7 +8,8 @@ echo Running goinstall \
 else
 echo Building \
 && echo "(in subscriber)" && cd subscriber && make $1 && cd - > /dev/null \
-&& echo "(in queue)" && cd queue && make $1 && cd - > /dev/null \
+&& echo "(in topic)" && cd topic && make $1 && cd - > /dev/null \
+&& echo "(in queuelist)" && cd queuelist && make $1 && cd - > /dev/null \
 && echo "(in .)" && cd . && make $1 && cd - > /dev/null \
 
 fi
