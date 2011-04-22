@@ -1,15 +1,9 @@
-package queue
+package topic
 
 
 import (
-	"os"
 	"subscriber"
 )
-
-type Message struct {
-	topicName   string
-	messageBody string
-}
 
 
 // A Topic is a point of interest that subscribers whish to get updates on
@@ -50,34 +44,4 @@ func (t *Topic) GetSubscriber(name string) (s *subscriber.Subscriber) {
 	}
 	return
 }
-
-type TopicList struct {
-	Topics []*Topic
-}
-
-func (t *TopicList) New() *TopicList {
-	return &TopicList{[...]*Topic{}[:]}
-}
-
-func (t *TopicList) AddTopic(name string) (e os.Error) {
-	for _, v := range t.Topics {
-		if v.Name == name {
-			e = os.NewError("Topic already exists")
-		}
-	}
-	t.Topics = append(t.Topics, NewTopic(name))
-	return
-}
-
-func (t *TopicList) GetTopic(name string) (tpc *Topic) {
-	for _, v := range t.Topics {
-		if v.Name == name {
-			tpc = v
-			break
-		}
-	}
-	return
-}
-
-///
 
