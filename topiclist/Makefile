@@ -3,9 +3,9 @@
 
 include $(GOROOT)/src/Make.inc
 
-TARG=topic
+TARG=topiclist
 GOFILES=\
-	topic.go\
+	topiclist.go\
 
 # gb: this is the local install
 GBROOT=..
@@ -24,3 +24,4 @@ include $(GOROOT)/src/Make.pkg
 # gb: local dependencies
 _obj/$(TARG).a: $(GBROOT)/_obj/message.a
 _obj/$(TARG).a: $(GBROOT)/_obj/subscriber.a
+_obj/$(TARG).a: $(GBROOT)/_obj/topic.a

@@ -3,6 +3,7 @@ package topic
 
 import (
 	"subscriber"
+	"message"
 )
 
 
@@ -43,5 +44,11 @@ func (t *Topic) GetSubscriber(name string) (s *subscriber.Subscriber) {
 		}
 	}
 	return
+}
+
+func (t *Topic) Publish(m message.Message) {
+	for _, v := range t.Subscribers {
+		v.Notify(m)
+	}
 }
 

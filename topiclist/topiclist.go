@@ -1,22 +1,19 @@
-package queuelist
+package topiclist
 
 
 import (
 	"os"
 	"topic"
+	"subscriber"
+	"message"
 )
-
-type Message struct {
-	topicName   string
-	messageBody string
-}
 
 
 type TopicList struct {
 	Topics []*topic.Topic
 }
 
-func (t *TopicList) New() *TopicList {
+func New() *TopicList {
 	return &TopicList{[...]*topic.Topic{}[:]}
 }
 
@@ -40,5 +37,18 @@ func (t *TopicList) GetTopic(name string) (tpc *topic.Topic) {
 	return
 }
 
+func (t *TopicList) Subscribe(topicName string, subscriberName string, subscriberEndPoint string) {
+	tpc := t.GetTopic(topicName)
+	if tpc != nil {
+		tpc.AddSubscriber(subscriber.NewSubscriber(subscriberName, subscriberName))
+	}
+}
+
+func (t *TopicList) Publish(topicName string, m message.Message) {
+	tpc := t.GetTopic(topicName)
+	if tpc != nil {
+		tpc.Publish(m)
+	}
+}
 ///
 

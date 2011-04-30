@@ -16,7 +16,7 @@ func TestAddSubscriber(t *testing.T) {
 	var tpc *Topic = NewTopic("topic")
 	t.Log(tpc)
 	log.Println(tpc)
-	s := &subscriber.Subscriber{"name", "endpoint"}
+	s := subscriber.NewSubscriber("name", "endpoint")
 	tpc.AddSubscriber(s)
 	t.Log(tpc)
 	if len(tpc.Subscribers) != 1 {
@@ -34,10 +34,10 @@ func TestAddSubscriber(t *testing.T) {
 
 func TestRemoveSubscriber(t *testing.T) {
 	var tpc *Topic = NewTopic("topic")
-	s1 := &subscriber.Subscriber{"s1", "endpoint"}
-	s2 := &subscriber.Subscriber{"s2", "endpoint"}
-	s3 := &subscriber.Subscriber{"s3", "endpoint"}
-	s4 := &subscriber.Subscriber{"s1", "endpoint"}
+	s1 := subscriber.NewSubscriber("s1", "endpoint")
+	s2 := subscriber.NewSubscriber("s2", "endpoint")
+	s3 := subscriber.NewSubscriber("s3", "endpoint")
+	s4 := subscriber.NewSubscriber("s1", "endpoint")
 	tpc.AddSubscriber(s1)
 	tpc.AddSubscriber(s2)
 	tpc.AddSubscriber(s3)
@@ -58,10 +58,10 @@ func TestRemoveSubscriber(t *testing.T) {
 
 func TestGetSubscriber(t *testing.T) {
 	var tpc *Topic = NewTopic("topic")
-	s1 := &subscriber.Subscriber{"s1", "endpoint"}
-	s2 := &subscriber.Subscriber{"s2", "endpoint"}
-	s3 := &subscriber.Subscriber{"s3", "endpoint"}
-	s4 := &subscriber.Subscriber{"s1", "endpoint"}
+	s1 := subscriber.NewSubscriber("s1", "endpoint")
+	s2 := subscriber.NewSubscriber("s2", "endpoint")
+	s3 := subscriber.NewSubscriber("s3", "endpoint")
+	s4 := subscriber.NewSubscriber("s1", "endpoint")
 	tpc.AddSubscriber(s1)
 	tpc.AddSubscriber(s2)
 	tpc.AddSubscriber(s3)
